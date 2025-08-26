@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", function (req, res, next) {
-  res.json({ status: "ok", server: "example server" });
+  res.json({ status: "ok", server: "feedtheneed server" });
 });
 
 routes.forEach((route) => {
