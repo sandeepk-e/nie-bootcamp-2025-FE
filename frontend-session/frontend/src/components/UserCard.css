@@ -1,0 +1,115 @@
+.user-card {
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  width: 100%;
+}
+
+.user-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.user-card-image {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-card-image img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #646cff;
+  transition: transform 0.3s ease;
+}
+
+.user-card-image img:hover {
+  transform: scale(1.05);
+}
+
+.user-card-content {
+  text-align: center;
+}
+
+.user-card-name {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.user-card-username {
+  font-size: 1em;
+  color: #646cff;
+  margin: 0 0 12px 0;
+  font-weight: 500;
+}
+
+.user-card-address {
+  font-size: 0.9em;
+  color: #666;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.user-card-address::before {
+  content: "📍";
+  font-size: 0.9em;
+}
+
+.user-card-description {
+  font-size: 0.9em;
+  color: #777;
+  line-height: 1.5;
+  margin: 0;
+  text-align: left;
+  background: rgba(100, 108, 255, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid #646cff;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .user-card {
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .user-card-name {
+    color: #ffffff;
+  }
+
+  .user-card-address {
+    color: #cccccc;
+  }
+
+  .user-card-description {
+    color: #cccccc;
+    background: rgba(100, 108, 255, 0.1);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .user-card {
+    padding: 16px;
+  }
+
+  .user-card-image img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .user-card-name {
+    font-size: 1.3em;
+  }
+}
