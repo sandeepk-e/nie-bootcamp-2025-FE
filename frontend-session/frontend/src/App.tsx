@@ -16,8 +16,14 @@ function App() {
         setLoading(true);
         setError(null);
         const fetchedUsers = await UserService.getAllUsers();
+        
+        // Add 2 second delay to explicitly show spinner
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
         setUsers(fetchedUsers);
       } catch (err) {
+        // Also add delay for error handling
+        await new Promise(resolve => setTimeout(resolve, 2000));
         setError(err instanceof Error ? err.message : 'An error occurred while fetching users');
         console.error('Failed to fetch users:', err);
       } finally {
@@ -28,48 +34,41 @@ function App() {
     fetchUsers();
   }, []);
 
-  const handleRetry = () => {
+  const handleRetry = async () => {
     setError(null);
     setLoading(true);
-    // Re-trigger the fetch by calling it directly
-    UserService.getAllUsers()
-      .then(setUsers)
-      .catch((err) => {
-        setError(err instanceof Error ? err.message : 'An error occurred while fetching users');
-      })
-      .finally(() => setLoading(false));
+    
+    try {
+      const fetchedUsers = await UserService.getAllUsers();
+      
+      // Add 2 second delay to explicitly show spinner
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      setUsers(fetchedUsers);
+    } catch (err) {
+      // Also add delay for error handling
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setError(err instanceof Error ? err.message : 'An error occurred while fetching users');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  return (
-    <div className="app">
-      <header className="app-header">
-        <h1>Example App</h1>
-        <p>Community Platform</p>
-      </header>
+  if (loading) {
+    return <Spinner message="Loading users..." />;
+  }
 
-      <main className="app-main">
-        {loading && (
-          <Spinner size="large" message="Loading users..." />
-        )}
+  if (error) {
+    return (
+      <div>
+        <h3>Oops! Something went wrong</h3>
+        <p>{error}</p>
+        <button onClick={handleRetry}>Try Again</button>
+      </div>
+    );
+  }
 
-        {error && (
-          <div className="error-container">
-            <div className="error-message">
-              <h3>Oops! Something went wrong</h3>
-              <p>{error}</p>
-              <button onClick={handleRetry} className="retry-button">
-                Try Again
-              </button>
-            </div>
-          </div>
-        )}
-
-        {!loading && !error && (
-          <UserList users={users} />
-        )}
-      </main>
-    </div>
-  );
+  return <UserList users={users} />;
 }
 
 export default App;

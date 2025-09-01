@@ -11,20 +11,15 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
   if (users.length === 0) {
     return (
       <div className="user-list-empty">
-        <div className="empty-state">
-          <h3>No users found</h3>
-          <p>There are currently no users to display.</p>
-        </div>
+        <h3>No users found</h3>
+        <p>There are currently no users to display.</p>
       </div>
     );
   }
 
   return (
-    <div className="user-list-container">
-      <div className="user-list-header">
-        <h2>Users ({users.length})</h2>
-        <p>Browse through our community members</p>
-      </div>
+    <div>
+      <h2>User List</h2>
       <div className="user-list">
         {users.map((user) => (
           <UserCard key={user._id} user={user} />

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Development & React Interactive Presentation</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Navigation -->
+        <nav class="nav-bar">
+            <div class="nav-content">
+                <div class="logos">
+                    <span class="logo">🌐</span>
+                    <span class="separator">×</span>
+                    <span class="logo">⚛️</span>
+                    <span class="separator">×</span>
+                    <span class="logo">🚀</span>
+                </div>
+                <div class="nav-controls">
+                    <span class="slide-counter">
+                        <span id="current-slide">1</span> / <span id="total-slides">9</span>
+                    </span>
+                    <button id="prev-btn" class="nav-btn">←</button>
+                    <button id="next-btn" class="nav-btn">→</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Slide Container -->
+        <div class="slide-container">
+            <!-- Slide 1: Browser Fundamentals -->
+            <div class="slide active" data-slide="1">
+                <div class="slide-content">
+                    <h1 class="slide-title">Browser Fundamentals</h1>
+                    <p class="subtitle">Understanding the Building Blocks</p>
+                    <div class="browser-basics">
+                        <h3>Browsers understand 3 core languages</h3>
+                        <div class="language-grid">
+                            <div class="language-item">
+                                <strong>HTML</strong>
+                                <p>Structure & Content</p>
+                            </div>
+                            <div class="language-item">
+                                <strong>CSS</strong>
+                                <p>Styling & Layout</p>
+                            </div>
+                            <div class="language-item">
+                                <strong>JavaScript</strong>
+                                <p>Behavior & Interactivity</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Use Case -->
+            <div class="slide" data-slide="2">
+                <div class="slide-content">
+                    <h1 class="slide-title">Building a User Directory</h1>
+                    <div class="use-case">
+                        <h2>User Management Application</h2>
+                        <div class="requirements-simple">
+                            <ul class="requirements-list">
+                                <li>Fetch user data from an API</li>
+                                <li>Display users in a grid layout</li>
+                                <li>Show loading states</li>
+                                <li>Handle errors gracefully</li>
+                                <li>Retry functionality</li>
+                            </ul>
+                        </div>
+                        <div class="approach-comparison">
+                            <p>We'll compare two approaches: <strong>Vanilla JavaScript</strong> vs <strong>React</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Vanilla JS Solution Part 1 -->
+            <div class="slide" data-slide="3">
+                <div class="slide-content">
+                    <h1 class="slide-title">Vanilla JavaScript - HTML Structure</h1>
+                    <div class="code-section">
+                        <h3>HTML Setup</h3>
+                        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Vanilla JS Application&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id="app"&gt;&lt;/div&gt;
+    &lt;script src="app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        <div class="code-explanation">
+                            <div class="explanation-point">
+                                <p><strong>Simple structure:</strong> All logic handled in JavaScript</p>
+                            </div>
+                            <div class="explanation-point">
+                                <p><strong>Note:</strong> Everything depends on manual DOM manipulation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Vanilla JS Solution Part 2 -->
+            <div class="slide" data-slide="4">
+                <div class="slide-content">
+                    <h1 class="slide-title">Vanilla JavaScript - Implementation</h1>
+                    <div class="code-section">
+                        <pre><code class="language-javascript">// Manual DOM manipulation
+function showUserList(users) {
+  let html = "&lt;h2&gt;User List&lt;/h2&gt;&lt;div class='user-list'&gt;";
+  users.forEach(user =&gt; {
+    html += `
+      &lt;div class="user-card"&gt;
+        &lt;img src="https://ui-avatars.com/api/?name=${user.name}" 
+             alt="${user.name}" /&gt;
+        &lt;h3&gt;${user.name}&lt;/h3&gt;
+        &lt;p&gt;&lt;strong&gt;Address:&lt;/strong&gt; ${user.address}&lt;/p&gt;
+      &lt;/div&gt;
+    `;
+  });
+  html += "&lt;/div&gt;";
+  app.innerHTML = html; // Replace entire content
+}
+
+function fetchUsers() {
+  isLoading = true;
+  showSpinner("Loading users...");
+  
+  fetch("http://localhost:8004/api/users")
+    .then(res =&gt; res.json())
+    .then(users =&gt; {
+      setTimeout(() =&gt; {
+        isLoading = false;
+        showUserList(users);
+      }, 2000);
+    })
+    .catch(err =&gt; {
+      isLoading = false;
+      showError(err.message);
+    });
+}</code></pre>
+                        <div class="problems">
+                            <h4>Issues with this approach:</h4>
+                            <ul>
+                                <li>String concatenation for HTML creation</li>
+                                <li>Manual state management</li>
+                                <li>No component reusability</li>
+                                <li>Complex error handling</li>
+                                <li>Hard to maintain and debug</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: What is React? -->
+            <div class="slide" data-slide="5">
+                <div class="slide-content">
+                    <h1 class="slide-title">React</h1>
+                    <div class="react-intro">
+                        <div class="react-definition">
+                            <h2>What is React?</h2>
+                            <p class="definition-text">A JavaScript library for building user interfaces with components</p>
+                            <div class="react-key-points">
+                                <div class="key-point">
+                                    <span>Created by Meta</span>
+                                </div>
+                                <div class="key-point">
+                                    <span>Component-based architecture</span>
+                                </div>
+                                <div class="key-point">
+                                    <span>Declarative programming</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="react-benefits">
+                            <h3>Key Benefits:</h3>
+                            <div class="benefits-grid">
+                                <div class="benefit">
+                                    <strong>Reusable Components</strong>
+                                    <p>Build once, use everywhere</p>
+                                </div>
+                                <div class="benefit">
+                                    <strong>Virtual DOM</strong>
+                                    <p>Efficient updates</p>
+                                </div>
+                                <div class="benefit">
+                                    <strong>State Management</strong>
+                                    <p>Built-in data handling</p>
+                                </div>
+                                <div class="benefit">
+                                    <strong>Developer Experience</strong>
+                                    <p>Great tooling</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: React Solution Part 1 -->
+            <div class="slide" data-slide="6">
+                <div class="slide-content">
+                    <h1 class="slide-title">React Components</h1>
+                    <div class="code-section">
+                        <h3>UserCard Component</h3>
+                        <pre><code class="language-tsx">// Reusable component
+function UserCard({ user }: { user: User }) {
+  return (
+    &lt;div className="user-card"&gt;
+      &lt;img 
+        src={`https://ui-avatars.com/api/?name=${user.name}`}
+        alt={user.name} 
+      /&gt;
+      &lt;h3&gt;{user.name}&lt;/h3&gt;
+      &lt;p&gt;&lt;strong&gt;Address:&lt;/strong&gt; {user.address}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                        <h3>UserList Component</h3>
+                        <pre><code class="language-tsx">function UserList({ users }: { users: User[] }) {
+  return (
+    &lt;&gt;
+      &lt;h2&gt;User List&lt;/h2&gt;
+      &lt;div className="user-list"&gt;
+        {users.map(user =&gt; (
+          &lt;UserCard key={user.id} user={user} /&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+                        <div class="code-explanation">
+                            <div class="explanation-point success">
+                                <p><strong>Clean structure:</strong> Each component has one responsibility</p>
+                            </div>
+                            <div class="explanation-point success">
+                                <p><strong>Reusable:</strong> Components can be used anywhere</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: React Solution Part 2 -->
+            <div class="slide" data-slide="7">
+                <div class="slide-content">
+                    <h1 class="slide-title">React State Management</h1>
+                    <div class="code-section">
+                        <h3>Main App Component</h3>
+                        <pre><code class="language-tsx">function App() {
+  const [users, setUsers] = useState&lt;User[]&gt;([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState&lt;string | null&gt;(null);
+
+  useEffect(() =&gt; {
+    const fetchUsers = async () =&gt; {
+      try {
+        setLoading(true);
+        const fetchedUsers = await UserService.getAllUsers();
+        await new Promise(resolve =&gt; setTimeout(resolve, 2000));
+        setUsers(fetchedUsers);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+  if (loading) return &lt;Spinner /&gt;;
+  if (error) return &lt;ErrorComponent onRetry={handleRetry} /&gt;;
+  return &lt;UserList users={users} /&gt;;
+}</code></pre>
+                        <div class="react-advantages">
+                            <h4>React Advantages:</h4>
+                            <ul>
+                                <li>Automatic re-rendering when state changes</li>
+                                <li>Clean separation of concerns</li>
+                                <li>Easy to test individual components</li>
+                                <li>TypeScript support</li>
+                                <li>Declarative programming style</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 8: Beyond Basics -->
+            <div class="slide" data-slide="8">
+                <div class="slide-content">
+                    <h1 class="slide-title">Production Considerations</h1>
+                    <div class="production-aspects">
+                        <div class="aspect">
+                            <h3>Design & UX</h3>
+                            <ul>
+                                <li><strong>CSS Frameworks:</strong> Tailwind, Bootstrap</li>
+                                <li><strong>Responsive Design:</strong> Mobile-first</li>
+                                <li><strong>Accessibility:</strong> WCAG compliance</li>
+                            </ul>
+                        </div>
+                        <div class="aspect">
+                            <h3>Security</h3>
+                            <ul>
+                                <li><strong>XSS Prevention:</strong> Input sanitization</li>
+                                <li><strong>HTTPS:</strong> Encrypted transmission</li>
+                                <li><strong>Authentication:</strong> JWT, OAuth</li>
+                            </ul>
+                        </div>
+                        <div class="aspect">
+                            <h3>Performance</h3>
+                            <ul>
+                                <li><strong>Code Splitting:</strong> Load what's needed</li>
+                                <li><strong>Lazy Loading:</strong> On-demand resources</li>
+                                <li><strong>Caching:</strong> Browser and API caching</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Questions -->
+            <div class="slide" data-slide="9">
+                <div class="slide-content">
+                    <h1 class="slide-title">Questions?</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-tsx.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
